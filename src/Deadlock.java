@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 public class Deadlock {
 
@@ -15,39 +16,36 @@ public class Deadlock {
                     if (result >= min && result <= max) {
                         return result;
                     }
-                } catch (NumberFormatException e) {}
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка! Нужно ввести целое число");
+                }
         } while (result != 0) ;
     } catch (IOException e) {
             e.printStackTrace();
         }
         return 0;
     }
+
     public static void main(String[] args) {
         Account acc1 = new Account(5000);
         Account acc2 = new Account(200);
-        Runnable runnable1 = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable1 = () -> {
                 acc1.transfer(acc2,100);
-            }
-        };
-        Runnable runnable2 = new Runnable() {
-            @Override
-            public void run() {
+            };
+        Runnable runnable2 = ()-> {
                 acc2.transfer(acc1,50);
-            }
         };
-        int choice = choiceInt("Для демонстрации дедлока нажмите 1, для демонстрации прерывания нажмите 2",1,2);
-        if (choice != 0) {
+        //int choice = choiceInt("Для демонстрации дедлока нажмите 1, для демонстрации прерывания нажмите 2",1,2);
+        Optional<Integer> choice = Optional.of(choiceInt("Для демонстрации дедлока нажмите 1, для демонстрации прерывания нажмите 2",1,2));
+        if (choice.get() != 0) {
             Thread thread1 = new Thread(runnable1);
             Thread thread2 = new Thread(runnable2);
             thread1.start();
             thread2.start();
             try {
-                if (choice == 2){
+                if (choice.get() == 2){
                     thread1.interrupt();
-                }
-                else {
+                } else {
                     System.out.println("взаимная блокировка...");
                 }
                 thread1.join();

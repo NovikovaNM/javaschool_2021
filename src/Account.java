@@ -4,15 +4,14 @@ public class Account {
         this.balance = balance;
     }
 
-    public boolean transfer(Account accTo, int sum) {
-        if (sum>0) {
-            if (this.balance >= sum) {
+    public boolean transfer(Account accountTo, int sum) {
+        if (sum>0 && this.balance >= sum) {
                 synchronized (this) {
                     try {
                         Thread.sleep(2000);
-                        synchronized (accTo) {
+                        synchronized (accountTo) {
                             this.balance -= sum;
-                            accTo.balance += sum;
+                            accountTo.balance += sum;
                             return true;
                         }
                     } catch(InterruptedException e) {
@@ -22,9 +21,6 @@ public class Account {
             } else {
                 return false;
             }
-        } else {
-            return false;
-        }
     }
 }
 
