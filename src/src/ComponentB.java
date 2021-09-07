@@ -11,7 +11,7 @@ public class ComponentB implements Runnable {
                     Thread.sleep(2000);
                     countB.incrementAndGet();
                     ProductionLine.queueB.put("B" + countB);
-                    System.out.println("B" + countB + "added"+ ZonedDateTime.now().toString());
+                    System.out.println("B" + countB + " added");
                 }
             } catch (InterruptedException e) {
                 System.out.println("runnable B interrupted");

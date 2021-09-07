@@ -10,7 +10,7 @@ public class ModuleMaker implements Runnable {
                 while (true) {
                     if (!ProductionLine.queueA.isEmpty() && !ProductionLine.queueB.isEmpty()) {
                         ProductionLine.queueModule.put("Module" + countModule.incrementAndGet() + "(" + ProductionLine.queueA.take() + ProductionLine.queueB.take() + ")");
-                        System.out.println("queueModule" + countModule + " added" + ZonedDateTime.now().toString());
+                        System.out.println("queueModule" + countModule + " added" );
                     } else {
                         Thread.sleep(500);
                     }

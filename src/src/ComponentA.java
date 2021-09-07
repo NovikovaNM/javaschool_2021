@@ -12,7 +12,7 @@ public class ComponentA implements Runnable {
                     Thread.sleep(1000);
                     countA.incrementAndGet();
                     ProductionLine.queueA.put("A" + countA);
-                    System.out.println("A" + countA + "added "+ ZonedDateTime.now().toString());
+                    System.out.println("A" + countA + " added ");
                 }
             } catch (InterruptedException e) {
                 System.out.println("runnable A interrupted");
